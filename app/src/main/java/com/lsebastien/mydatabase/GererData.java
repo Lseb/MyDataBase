@@ -32,27 +32,30 @@ public class GererData {
         dbHelper.close();
     }
 
-    public Data createData(String) {
+    public Data createData(Data data) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_COMMENT, comment);
+        values.put(MySQLiteHelper.COLUMN_NIVEAU, data.getNiveau());
+        values.put(MySQLiteHelper.COLUMN_AXE, data.getAxe());
+        values.put(MySQLiteHelper.COLUMN_DEADZONE,data.getDeadzone());
+        values.put(MySQLiteHelper.COLUMN_GAIN,data.getGain());
         long insertId = database.insert(MySQLiteHelper.TABLE_DATAS, null,
                 values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_DATAS,
                 allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        Data newData = cursorToComment(cursor);
+        Data newData = cursorToData(cursor);
         cursor.close();
         return newData;
     }
 
-    public void deleteComment(Data comment) {
-        long id = comment.getId();
+    public void deleteData(Data data) {
+        int id = data.getId();
         System.out.println("Comment deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_COMMENTS, MySQLiteHelper.COLUMN_ID
+        database.delete(MySQLiteHelper.TABLE_DATAS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
-
+    /*
     public List<Comment> getAllComments() {
         List<Comment> comments = new ArrayList<Comment>();
 
@@ -69,11 +72,14 @@ public class GererData {
         cursor.close();
         return comments;
     }
-
-    private Comment cursorToComment(Cursor cursor) {
-        Comment comment = new Comment();
-        comment.setId(cursor.getLong(0));
-        comment.setComment(cursor.getString(1));
-        return comment;
+    */
+    private Data cursorToData(Cursor cursor) {
+        Data data = new Data();
+        data.setId(cursor.getInt(0));
+        data.setNiveau(cursor.getString(1));
+        data.setAxe(cursor.getString(2));
+        data.setDeadzone(cursor.getString(3));
+        data.setGain(cursor.getString(4));
+        return data;
     }
 }

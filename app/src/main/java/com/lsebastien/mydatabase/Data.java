@@ -4,15 +4,19 @@ package com.lsebastien.mydatabase;
 // de données, et afficher dans l'interface utilisateur.
 
 public class Data {
-    private int niveau;
+    private int id;
+    private String  niveau;
     private String  axe;
     private String  deadzone;
     private String  gain;
 
-    public int getNiveau() {
+    public int  getId(){return id;}
+    public void setId(int id){this.id=id;}
+
+    public String getNiveau() {
         return niveau;
     }
-    public void setNiveau(int niveau) {
+    public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
 
@@ -40,6 +44,6 @@ public class Data {
     // Sera utilisée par ArrayAdapter dans la ListView
     @Override
     public String toString() {
-        return axe;
+        return "Niveau: " + niveau + "\n Axe: "+ axe + "\n Deadzone: " + deadzone +"\n Gain: " + gain;
     }
 }
