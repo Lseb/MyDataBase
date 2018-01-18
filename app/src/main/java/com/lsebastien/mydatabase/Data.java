@@ -5,7 +5,7 @@ package com.lsebastien.mydatabase;
 
 public class Data {
     private int id;
-    private String  niveau;
+    private String  idAvatar;
     private String  axe;
     private String  deadzone;
     private String  gain;
@@ -13,11 +13,11 @@ public class Data {
     public int  getId(){return id;}
     public void setId(int id){this.id=id;}
 
-    public String getNiveau() {
-        return niveau;
+    public String getIdAvatar() {
+        return idAvatar;
     }
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
+    public void setIdAvatar(String idAvatar) {
+        this.idAvatar = idAvatar;
     }
 
     public String getAxe() {
@@ -44,6 +44,6 @@ public class Data {
     // Sera utilisée par ArrayAdapter dans la ListView
     @Override
     public String toString() {
-        return "Niveau: " + niveau + "\n Axe: "+ axe + "\n Deadzone: " + deadzone +"\n Gain: " + gain;
+        return "Avatar: " + idAvatar + "\n Axe: "+ axe + "\n Deadzone: " + deadzone +"\n Gain: " + gain;
     }
 }
