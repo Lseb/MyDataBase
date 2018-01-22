@@ -6,9 +6,15 @@ package com.lsebastien.mydatabase;
 public class Data {
     private int id;
     private String  idAvatar;
-    private String  axe;
-    private String  deadzone;
-    private String  gain;
+    private String  deadzoneYaw;
+    private String  deadzonePitch;
+    private String  deadzoneRoll;
+    private String  deadzoneUpDown;
+    private String  gainYaw;
+    private String  gainPitch;
+    private String  gainRoll;
+    private String  gainUpDown;
+
 
     public int  getId(){return id;}
     public void setId(int id){this.id=id;}
@@ -20,30 +26,65 @@ public class Data {
         this.idAvatar = idAvatar;
     }
 
-    public String getAxe() {
-        return axe;
+    public String getDeadzoneYaw() {
+        return deadzoneYaw;
     }
-    public void setAxe(String axe) {
-        this.axe = axe;
-    }
-
-    public String getDeadzone() {
-        return deadzone;
-    }
-    public void setDeadzone(String deadzone) {
-        this.deadzone = deadzone;
+    public void setDeadzoneYaw(String deadzoneYaw) {
+        this.deadzoneYaw = deadzoneYaw;
     }
 
-    public String getGain() {
-        return gain;
+    public String getDeadzonePitch() {
+        return deadzonePitch;
     }
-    public void setGain(String gain) {
-        this.gain = gain;
+    public void setDeadzonePitch(String deadzonePitch) {
+        this.deadzonePitch = deadzonePitch;
     }
 
-    // Sera utilisée par ArrayAdapter dans la ListView
+    public String getDeadzoneRoll() {
+        return deadzoneRoll;
+    }
+    public void setDeadzoneRoll(String deadzoneRoll) {
+        this.deadzoneRoll = deadzoneRoll;
+    }
+
+    public String getDeadzoneUpDown() {
+        return deadzoneUpDown;
+    }
+    public void setDeadzoneUpDown(String deadzoneUpDown) {
+        this.deadzoneUpDown = deadzoneUpDown;
+    }
+
+    public String getGainYaw() {
+        return gainYaw;
+    }
+    public void setGainYaw(String gainYaw) {
+        this.gainYaw = gainYaw;
+    }
+
+    public String getGainPitch() {
+        return gainPitch;
+    }
+    public void setGainPitch(String gainPitch) {
+        this.gainPitch = gainPitch;
+    }
+
+    public String getGainRoll() {
+        return gainRoll;
+    }
+    public void setGainRoll(String gainRoll) {
+        this.gainRoll = gainRoll;
+    }
+
+    public String getGainUpDown() {
+        return gainUpDown;
+    }
+    public void setGainUpDown(String gainUpDown) {
+        this.gainUpDown = gainUpDown;
+    }
+    /*
     @Override
     public String toString() {
         return "Avatar: " + idAvatar + "\n Axe: "+ axe + "\n Deadzone: " + deadzone +"\n Gain: " + gain;
     }
+    */
 }
