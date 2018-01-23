@@ -5,7 +5,7 @@ package com.lsebastien.mydatabase;
 
 public class Data {
     private int id;
-    private String  idAvatar;
+    private int  idAvatar;
     private String  deadzoneYaw;
     private String  deadzonePitch;
     private String  deadzoneRoll;
@@ -19,10 +19,10 @@ public class Data {
     public int  getId(){return id;}
     public void setId(int id){this.id=id;}
 
-    public String getIdAvatar() {
+    public int getIdAvatar() {
         return idAvatar;
     }
-    public void setIdAvatar(String idAvatar) {
+    public void setIdAvatar(int idAvatar) {
         this.idAvatar = idAvatar;
     }
 

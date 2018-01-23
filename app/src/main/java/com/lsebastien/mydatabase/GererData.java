@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
 
 public class GererData {
 
@@ -23,12 +24,19 @@ public class GererData {
             MySQLiteHelper.COLUMN_DEADZONEROLL,MySQLiteHelper.COLUMN_DEADZONEUPDOWN,MySQLiteHelper.COLUMN_GAINYAW,
             MySQLiteHelper.COLUMN_GAINPITCH,MySQLiteHelper.COLUMN_GAINROLL,MySQLiteHelper.COLUMN_GAINUPDOWN};
 
+
+
     public GererData(Context context) {
         dbHelper = new MySQLiteHelper(context);
     }
 
+
     public void open() throws SQLiteException {
-        database = dbHelper.getWritableDatabase();
+        try {
+            database = dbHelper.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            database = dbHelper.getReadableDatabase();
+        }
     }
 
     public void close() {
@@ -65,29 +73,50 @@ public class GererData {
 
     public void deleteData(Data data) {
         int id = data.getId();
-        System.out.println("Comment deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_DATAS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
 
-    public Data getAllDataByUser(int idAvatar){
+    public Data getDataByUser(int idAvatar){
         Data data=new Data();
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_DATAS,
-                allColumns, MySQLiteHelper.COLUMN_AVATAR+ " = " + idAvatar,
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_DATAS,allColumns, MySQLiteHelper.COLUMN_AVATAR+ " = " + idAvatar,
                 null, null, null, null);
-        data.setId(cursor.getInt(0));
-        data.setIdAvatar(cursor.getString(1));
-        data.setDeadzoneYaw(cursor.getString(2));
-        data.setDeadzonePitch(cursor.getString(3));
-        data.setDeadzoneRoll(cursor.getString(4));
-        data.setDeadzoneUpDown(cursor.getString(5));
-        data.setGainYaw(cursor.getString(6));
-        data.setGainPitch(cursor.getString(7));
-        data.setGainRoll(cursor.getString(8));
-        data.setGainUpDown(cursor.getString(9));
-        cursor.close();
-        // assurez-vous de la fermeture du curseur
+        System.out.println(" avant");
+        if(cursor!=null) {
+            if(cursor.moveToFirst()){
+                System.out.println("ok");
+                int indexId=cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID);
+                int indexAvatar=cursor.getColumnIndex(MySQLiteHelper.COLUMN_AVATAR);
+                int indexDeadzoneYaw=cursor.getColumnIndex(MySQLiteHelper.COLUMN_DEADZONEYAW);
+                int indexDeadzonePitch=cursor.getColumnIndex((MySQLiteHelper.COLUMN_DEADZONEPITCH));
+                int indexDeadzoneRoll=cursor.getColumnIndex(MySQLiteHelper.COLUMN_DEADZONEROLL);
+                int indexDeadzoneUpDown=cursor.getColumnIndex((MySQLiteHelper.COLUMN_DEADZONEUPDOWN));
+                int indexGainYaw=cursor.getColumnIndex(MySQLiteHelper.COLUMN_GAINYAW);
+                int indexGainPitch=cursor.getColumnIndex(MySQLiteHelper.COLUMN_GAINPITCH);
+                int indexGainRoll=cursor.getColumnIndex((MySQLiteHelper.COLUMN_GAINROLL));
+                int indexGainUpDown=cursor.getColumnIndex((MySQLiteHelper.COLUMN_GAINUPDOWN));
 
+                int count=0;
+                do {
+                    data.setId(cursor.getInt(indexId));
+                    data.setIdAvatar(cursor.getInt(indexAvatar));
+                    data.setDeadzoneYaw(cursor.getString(indexDeadzoneYaw));
+                    data.setDeadzonePitch(cursor.getString(indexDeadzonePitch));
+                    data.setDeadzoneRoll(cursor.getString(indexDeadzoneRoll));
+                    data.setDeadzoneUpDown(cursor.getString(indexDeadzoneUpDown));
+                    data.setGainYaw(cursor.getString(indexGainYaw));
+                    data.setGainPitch(cursor.getString(indexGainPitch));
+                    data.setGainRoll(cursor.getString(indexGainRoll));
+                    data.setGainUpDown(cursor.getString(indexGainUpDown));
+                    count++;
+                } while(cursor.moveToNext());
+            }
+            else {
+                System.out.println("pas de donnée");
+            }
+        }
+        System.out.println(" apres");
+        cursor.close();
         return data;
     }
 
